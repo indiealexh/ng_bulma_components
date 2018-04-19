@@ -13,9 +13,18 @@
     </div>
     <div class="navbar-menu" [class.is-active]="navBarMenuIsOpen" id="navMenu">
         <div class="navbar-start">
-            <nav-bar-item *ngFor="let startMenuItem of startMenuItems" [navBarItem]="startMenuItem"></nav-bar-item>
+            <template ngFor let-startMenuItem [ngForOf]="startMenuItems">
+                    <template [ngIf]="startMenuItem.type == 'link'">
+                        <a class="navbar-item" [href]="startMenuItem?.url">{{startMenuItem.text}}</a>
+                    </template>
+                    <template [ngIf]="startMenuItem.type == 'dropDown'">
+                        <nav-bar-item [navBarItem]="startMenuItem"></nav-bar-item>
+                    </template>
+            </template>
         </div>
-        <div class="navbar-end"></div>
+        <div class="navbar-end">
+
+        </div>
 
     </div>
 </nav>
